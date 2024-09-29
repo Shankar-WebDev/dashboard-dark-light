@@ -16,30 +16,118 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
       rel="stylesheet" />
     <link rel="stylesheet" href="/dist/style.css" />
-  </head>
+     <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+     <style>
+      .attribution {
+        font-size: 11px;
+        text-align: center;
+      }
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+    </style>
+  </head> 
   <body>
     <header class="header container">
       <div class="header__title">
         <h1>Social Media Dashboard</h1>
-        Total Followers: 23,004
+        <span class="header__subtitle">Total Followers: 23,004</span>
       </div>
 
-      <fieldset class="header__toggle toggle" aria-label="theme toggle" role="radiogroup">
-          <div class="toggle__wrapper">
-            <input type="radio" name="theme" id="dark"/> 
-            <input type="radio" name="theme" id="system" checked>
-            <input type="radio" name="theme" id="light" >
-            <span aria-hidden="true" class="toggle__background"></span>
-            <span aria-hidden="true" class="toggle__button"></span>
-          </div>
-          <label for="dark">Dark</label>
-          <label for="system">System</label>
-          <label for="light">Light</label>
+      <fieldset
+        class="header__toggle toggle"
+        aria-label="theme toggle"
+        role="radiogroup">
+        <label for="dark"
+          >Dark Mode <span class="visually-hidden">On</span></label
+        >
+        <div class="toggle__wrapper">
+          <input type="radio" name="theme" id="dark" />
+          <input type="radio" name="theme" id="light" />
+          <span aria-hidden="true" class="toggle__background"></span>
+          <span aria-hidden="true" class="toggle__button"></span>
+        </div>
+        <label for="light" class="visually-hidden">Dark Mode Off</label>
       </fieldset>
     </header>
     <main>
-      <section>
+      <section class="container cards">
+        <div class="card card--facebook">
+          <div class="card__platform">
+            <img
+              class="card__icon"
+              src="/images/icon-facebook.svg"
+              alt="Facebook"
+            />
+            <div class="card__username">@liferacer0046</div>
+          </div>
+          <div class="card__followers">
+            <div class="card__count card__count--big">1987</div>
+            <div class="card__label">Followers</div>
+          </div>
+          <div class="card__change card__change--up">
+            <img src="/images/icon-up.svg" alt="up arrow" />
+            <div class="card__number">12 Today</div>
+          </div>
+        </div>
 
+        <div class="card card--facebook">
+          <div class="card__platform">
+            <img
+              class="card__icon"
+              src="/images/icon-facebook.svg"
+              alt="Facebook"
+            />
+            <div class="card__username">@liferacer0046</div>
+          </div>
+          <div class="card__followers">
+            <div class="card__count card__count--big">1987</div>
+            <div class="card__label">Followers</div>
+          </div>
+          <div class="card__change card__change--up">
+            <img src="/images/icon-up.svg" alt="up arrow" />
+            <div class="card__number">12 Today</div>
+          </div>
+        </div>
+
+        <div class="card card--facebook">
+          <div class="card__platform">
+            <img
+              class="card__icon"
+              src="/images/icon-facebook.svg"
+              alt="Facebook"
+            />
+            <div class="card__username">@liferacer0046</div>
+          </div>
+          <div class="card__followers">
+            <div class="card__count card__count--big">1987</div>
+            <div class="card__label">Followers</div>
+          </div>
+          <div class="card__change card__change--up">
+            <img src="/images/icon-up.svg" alt="up arrow" />
+            <div class="card__number">12 Today</div>
+          </div>
+        </div>
+
+        <div class="card card--facebook">
+          <div class="card__platform">
+            <img
+              class="card__icon"
+              src="/images/icon-facebook.svg"
+              alt="Facebook"
+            />
+            <div class="card__username">@liferacer0046</div>
+          </div>
+          <div class="card__followers">
+            <div class="card__count card__count--big">1987</div>
+            <div class="card__label">Followers</div>
+          </div>
+          <div class="card__change card__change--up">
+            <img src="/images/icon-up.svg" alt="up arrow" />
+            <div class="card__number">12 Today</div>
+          </div>
+        </div>
+        
       </section>
     </main>
 
