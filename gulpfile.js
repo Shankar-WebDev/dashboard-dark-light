@@ -1,48 +1,63 @@
 // Initialize modules
 const { src, dest, watch, series } = require('gulp');
-const sass = require('gulp-sass')(require('sass')); // Use Dart Sass
+const sass = require('gulp-sass')(require('sass'));
 const postcss = require('gulp-postcss');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
+const babel = require('gulp-babel');
+const terser = require('gulp-terser');
 const browsersync = require('browser-sync').create();
 
-// Sass Task - Compile SCSS to CSS and generate sourcemaps
+// Use dart-sass for @use
+//sass.compiler = require('dart-sass');
+
+// Sass Task
 function scssTask() {
-  return src('app/scss/style.scss', { sourcemaps: true }) // Enable sourcemaps
-    .pipe(sass().on('error', sass.logError)) // Compile SCSS
-    .pipe(postcss([autoprefixer(), cssnano()])) // Add vendor prefixes and minify
-    .pipe(dest('dist', { sourcemaps: '.' })); // Save CSS and sourcemap in dist
+  return src('app/scss/style.scss', { sourcemaps: true })
+    .pipe(sass())
+    .pipe(postcss([autoprefixer(), cssnano()]))
+    .pipe(dest('dist', { sourcemaps: '.' }));
 }
 
-// Browsersync - Start server
+// JavaScript Task
+function jsTask() {
+  return src('app/js/script.js', { sourcemaps: true })
+    .pipe(babel({ presets: ['@babel/preset-env'] }))
+    .pipe(terser())
+    .pipe(dest('dist', { sourcemaps: '.' }));
+}
+
+// Browsersync
 function browserSyncServe(cb) {
   browsersync.init({
     server: {
       baseDir: '.',
     },
-    notify: false,
+    notify: {
+      styles: {
+        top: 'auto',
+        bottom: '0',
+      },
+    },
   });
   cb();
 }
-
-// Browsersync - Reload browser
 function browserSyncReload(cb) {
   browsersync.reload();
   cb();
 }
 
-// Watch Task - Watch SCSS and HTML files for changes
+// Watch Task
 function watchTask() {
-  watch('app/scss/**/*.scss', series(scssTask, browserSyncReload)); // Watch SCSS files
-  watch('*.html', browserSyncReload); // Watch HTML files
+  watch('*.html', browserSyncReload);
+  watch(
+    ['app/scss/**/*.scss', 'app/**/*.js'],
+    series(scssTask, jsTask, browserSyncReload)
+  );
 }
 
-// Default Gulp Task - Runs the SCSS task, browser sync, and watches files
-exports.default = series(
-  scssTask, // Compile SCSS initially
-  browserSyncServe, // Start Browsersync server
-  watchTask // Watch for changes
-);
+// Default Gulp Task
+exports.default = series(scssTask, jsTask, browserSyncServe, watchTask);
 
-// Build Task - Compile SCSS without starting the server or watching
-exports.build = series(scssTask);
+// Build Gulp Task
+exports.build = series(scssTask, jsTask);
